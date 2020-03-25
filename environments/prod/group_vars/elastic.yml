@@ -1,0 +1,3 @@
+cluster_name: "test-cluster"
+master_private_host1: "10.0.2.154:9300"
+private_hosts: "10.0.2.154:9300,10.0.2.196:9300,10.0.2.182:9300"

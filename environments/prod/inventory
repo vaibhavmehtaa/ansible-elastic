@@ -1,0 +1,12 @@
+[master_node]
+  x.x.x.x
+
+[data_node_1]
+  x.x.x.x
+
+[data_node_2]
+  x.x.x.x
+
+[all]
+  x.x.x.x
+

@@ -1,0 +1,61 @@
+- hosts: master_node
+  vars:
+    es_heap_size: "1g"
+    es_config:
+      cluster.name: "{{ cluster_name }}"
+      cluster.initial_master_nodes: "{{ master_private_host1 }}"
+      discovery.seed_hosts: "{{ private_hosts }}"
+      http.port: 9200
+      node.data: false
+      node.master: true
+      network.host: 0.0.0.0
+      bootstrap.memory_lock: false
+  vars_files:
+    - "environments/{{env}}/group_vars/{{env}}.yml"
+    - "environments/{{env}}/group_vars/elastic.yml"
+  become: yes
+  roles:
+    - elastic.elasticsearch
+  tags:
+    - elastic_setup  
+
+- hosts: data_node_1
+  vars:
+    es_data_dirs:
+      - "/opt/elasticsearch"
+    es_config:
+      cluster.name: "{{ cluster_name }}"
+      cluster.initial_master_nodes: "10.0.2.196:9300"
+      discovery.seed_hosts: "{{ private_hosts }}"
+      http.port: 9200
+      node.data: true
+      node.master: false
+      network.host: 0.0.0.0
+      bootstrap.memory_lock: false
+  vars_files:
+    - "environments/{{env}}/group_vars/{{env}}.yml"
+    - "environments/{{env}}/group_vars/elastic.yml"
+  become: yes
+  roles:
+    - elastic.elasticsearch
+  tags:
+    - elastic_setup  
+
+- hosts: data_node_2
+  vars:
+    es_config:
+      cluster.name: "{{ cluster_name }}"
+      discovery.seed_hosts: "{{ private_hosts }}"
+      http.port: 9200
+      node.data: true
+      node.master: false
+      network.host: 0.0.0.0
+      bootstrap.memory_lock: false
+  vars_files:
+    - "environments/{{env}}/group_vars/{{env}}.yml"
+    - "environments/{{env}}/group_vars/elastic.yml"
+  become: yes
+  roles:
+    - elastic.elasticsearch
+  tags:
+    - elastic_setup
