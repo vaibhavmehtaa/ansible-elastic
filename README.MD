@@ -1,4 +1,3 @@
-
 Role Name
 =========
 
@@ -70,3 +69,6 @@ pip install -r requirements.txt
 ansible-galaxy install -r galaxy.yml
 ansible-playbook -i environments/prod/inventory -e "env=prod" -t "elastic_setup"  play.yml
 ```
+
+Elastic parent role [link](https://github.com/elastic/ansible-elasticsearch).
+ 
